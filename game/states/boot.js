@@ -13,5 +13,3 @@ Boot.prototype = {
     this.game.state.start('preload');
   }
 };
-
-module.exports = Boot;

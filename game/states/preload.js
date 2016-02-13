@@ -13,6 +13,7 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
     this.load.image('yeoman', 'assets/yeoman-logo.png');
+    this.load.atlas('player', 'assets/spritesheet.png','assets/sprites.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
   },
   create: function() {
@@ -27,5 +28,3 @@ Preload.prototype = {
     this.ready = true;
   }
 };
-
-module.exports = Preload;

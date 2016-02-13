@@ -23,4 +23,3 @@ GameOver.prototype = {
     }
   }
 };
-module.exports = GameOver;

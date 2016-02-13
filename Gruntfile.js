@@ -33,7 +33,7 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        port: 3030,
+        port: 9000,
         // change this to '0.0.0.0' to access the server from outside
         hostname: 'localhost'
       },
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        path: 'http://localhost:3030'
+        path: 'http://localhost:9000'
       }
     },
     copy: {

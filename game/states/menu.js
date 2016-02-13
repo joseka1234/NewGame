@@ -24,7 +24,9 @@ Menu.prototype = {
     if(this.game.input.activePointer.justPressed()) {
       this.game.state.start('play');
     }
+    
+    if(this.game.input.keyboard.isDown(Phaser.Keyboard.SPACE)){
+      this.game.state.start('play');
+    }
   }
 };
-
-module.exports = Menu;
