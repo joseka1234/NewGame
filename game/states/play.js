@@ -9,7 +9,7 @@
    	this.gravity = 800;
    	this.velocidadX = 200;
    	this.drag = 600;
-   	this.velocidadSalto = -200;
+   	this.velocidadSalto = -300;
 
    	// Animaciones
  		var idle = [];
@@ -63,18 +63,27 @@
 	   this.player.body.collideWorldBounds = true;
 	   this.player.body.gravity.y = this.gravity;
 	   this.player.body.drag.setTo(this.drag, 0);
-
    },
    update: function() {
+
    	if(this.player.body.blocked.down || this.player.body.touching.down)
    		this.salto = false;
+
    	if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !this.salto) {
    		if(!this.face) {
    			this.player.scale.x *= -1;
    			this.face = true;
    		}
    		this.player.animations.play('run', this.frameRate, true);
-   		this.player.body.velocity.x = this.velocidadX;
+
+         // Salto
+         if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && (this.player.body.blocked.down || this.player.body.touching.down)){
+            this.player.animations.play('jump', this.frameRate, false);
+            this.salto = true;
+            this.player.body.velocity.y = this.velocidadSalto;
+         }
+
+         this.player.body.velocity.x = this.velocidadX;
    	}
    	else if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !this.salto) {
    		if(this.face) {
@@ -82,23 +91,23 @@
    			this.face = false;
    		}
    		this.player.animations.play('run', this.frameRate, true);	
-   		this.player.body.velocity.x = -this.velocidadX;
-   	}
-   	else if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-   		if(this.player.body.blocked.down || this.player.body.touching.down) {
-				this.player.animations.play('jump', this.frameRate, false);
-   			this.salto = true;
-   		}
-   		this.player.body.velocity.y = this.velocidadSalto;
+
+         // Salto
+         if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && (this.player.body.blocked.down || this.player.body.touching.down)){
+            this.player.animations.play('jump', this.frameRate, false);
+            this.salto = true;
+            this.player.body.velocity.y = this.velocidadSalto;
+         }
+
+         this.player.body.velocity.x = -this.velocidadX;
    	}
    	else if(this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
    		
    	}
    	else {
-   		if(!this.salto)
+   		if((this.player.body.blocked.down || this.player.body.touching.down) && this.player.body.velocity.x == 0)
    			this.player.animations.play('idle', this.frameRate, true);
    	}
-
    },
    clickListener: function() {
    	this.game.state.start('gameover');
